@@ -193,17 +193,4 @@ extern char *__cxa_demangle (const char *mangled_name, char *output_buffer,
   extern int never_defined_just_used_for_checking[(expr) ? 1 : -1]	\
     __attribute__ ((unused))
 
-/* We really want a basename implementation that doesn't modify the
-   input argument.  Normally you get that from string.h with _GNU_SOURCE
-   define.  But some libc implementations don't define it and other
-   define it, but provide an implementation that still modifies the
-   argument.  So define our own and poison a bare basename symbol.  */
-static inline const char *
-xbasename(const char *s)
-{
-  const char *p = strrchr(s, '/');
-  return p ? p+1 : s;
-}
-#pragma GCC poison basename
-
 #endif /* system.h */
